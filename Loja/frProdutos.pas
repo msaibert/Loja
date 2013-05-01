@@ -27,8 +27,7 @@ type
     nvProduto: TcxDBNavigator;
     quCategoria: TZQuery;
     dsCategoria: TDataSource;
-    lcCategoria: TcxDBComboBox;
-    procedure quProdutosAfterScroll(DataSet: TDataSet);
+    lcCategoria: TcxDBLookupComboBox;
   private
     { Private declarations }
   public
@@ -42,16 +41,5 @@ implementation
 uses udmConexao;
 
 {$R *.dfm}
-
-procedure TTelaProdutos.quProdutosAfterScroll(DataSet: TDataSet);
-var
-  Lteste : Boolean;
-begin
-  try
-  Lteste := quCategoria.Locate('id', 2, []);
-  ShowMessage(BoolToStr(Lteste));
-  except
-  end;
-end;
 
 end.

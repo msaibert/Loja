@@ -55,14 +55,14 @@ object TelaProdutos: TTelaProdutos
     Height = 21
     DataBinding.DataField = 'precocusto'
     DataBinding.DataSource = dsProdutos
-    TabOrder = 8
+    TabOrder = 9
   end
   object lbPrecoCusto: TcxLabel
     Left = 24
     Top = 143
     Width = 81
     Height = 17
-    TabOrder = 7
+    TabOrder = 8
     Caption = 'Pre'#231'o de Custo'
   end
   object lbPrecoFinal: TcxLabel
@@ -70,7 +70,7 @@ object TelaProdutos: TTelaProdutos
     Top = 168
     Width = 61
     Height = 17
-    TabOrder = 9
+    TabOrder = 10
     Caption = 'Pre'#231'o Final'
   end
   object edPrecoFinal: TcxDBCurrencyEdit
@@ -80,7 +80,7 @@ object TelaProdutos: TTelaProdutos
     Height = 21
     DataBinding.DataField = 'precofinal'
     DataBinding.DataSource = dsProdutos
-    TabOrder = 10
+    TabOrder = 11
   end
   object lbCategoria: TcxLabel
     Left = 52
@@ -120,23 +120,44 @@ object TelaProdutos: TTelaProdutos
   object nvProduto: TcxDBNavigator
     Left = 366
     Top = 203
-    Width = 227
+    Width = 206
     Height = 25
+    Buttons.First.Hint = 'Ir para primeiro produto cadastrado.'
+    Buttons.PriorPage.Visible = False
+    Buttons.Next.Hint = 'Vai para o pr'#243'ximo produto da lista.'
+    Buttons.NextPage.Visible = False
+    Buttons.Last.Hint = 'Ir para '#250'ltimo produto cadastrado.'
+    Buttons.Insert.Hint = 'Novo produto.'
+    Buttons.Delete.Hint = 'Deletar o produto atual.'
+    Buttons.Edit.Hint = 'Editar o produto atual.'
+    Buttons.Post.Hint = 'Salvar altera'#231#245'es.'
+    Buttons.Cancel.Hint = 'Cancelar altera'#231#245'es\inclus'#227'o para o produto atual.'
+    Buttons.Refresh.Visible = False
+    Buttons.GotoBookmark.Hint = 'V'#225' para produto marcado.'
+    Buttons.Filter.Hint = 'Criar filtro avan'#231'ado para localiza'#231#227'o de um produto.'
     DataSource = dsProdutos
-    TabOrder = 11
+    TabOrder = 12
   end
-  object lcCategoria: TcxDBComboBox
-    Left = 113
+  object lcCategoria: TcxDBLookupComboBox
+    Left = 112
     Top = 114
     Width = 480
     Height = 21
-    DataBinding.DataField = 'descricao'
-    DataBinding.DataSource = dsCategoria
-    TabOrder = 12
+    DataBinding.DataField = 'categoria_id'
+    DataBinding.DataSource = dsProdutos
+    Properties.KeyFieldNames = 'id'
+    Properties.ListColumns = <
+      item
+        FieldName = 'descricao'
+      end
+      item
+        FieldName = 'id'
+      end>
+    Properties.ListSource = dsCategoria
+    TabOrder = 7
   end
   object quProdutos: TZQuery
     Connection = dmConexao.connectionSistema
-    AfterScroll = quProdutosAfterScroll
     Active = True
     SQL.Strings = (
       'select * from produtos')
