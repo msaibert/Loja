@@ -148,11 +148,12 @@ object TelaProdutos: TTelaProdutos
     Properties.KeyFieldNames = 'id'
     Properties.ListColumns = <
       item
-        FieldName = 'descricao'
+        FieldName = 'id'
       end
       item
-        FieldName = 'id'
+        FieldName = 'descricao'
       end>
+    Properties.ListFieldIndex = 1
     Properties.ListSource = dsCategoria
     TabOrder = 7
   end
