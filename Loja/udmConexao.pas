@@ -3,7 +3,7 @@ unit udmConexao;
 interface
 
 uses
-  SysUtils, Classes, ZConnection;
+  SysUtils, Classes, ZConnection, ZAbstractConnection;
 
 type
   TdmConexao = class(TDataModule)

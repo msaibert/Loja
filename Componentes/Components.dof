@@ -112,10 +112,10 @@ RootDir=C:\Program Files (x86)\Borland\Delphi7\Bin\
 [Version Info]
 IncludeVerInfo=1
 AutoIncBuild=0
-MajorVer=0
+MajorVer=1
 MinorVer=0
 Release=0
-Build=1
+Build=0
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=0.0.0.1
+FileVersion=1.0.0.0
 InternalName=
 LegalCopyright=
 LegalTrademarks=
@@ -134,3 +134,8 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[Excluded Packages]
+c:\program files (x86)\borland\delphi7\Bin\dcltee70.bpl=TeeChart Standard Components
+c:\program files (x86)\borland\delphi7\Bin\dcltqr70.bpl=TeeChart for QuickReport Components
+c:\program files (x86)\borland\delphi7\Bin\dcltee45.bpl=TeeChart Standard Components
+c:\program files (x86)\borland\delphi7\Bin\dcltep45.bpl=TeeChart Pro Components

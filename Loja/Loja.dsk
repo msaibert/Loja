@@ -1,72 +1,90 @@
 [Closed Files]
-File_0=SourceModule,'D:\Documents\Programação\DelphiProjects\Loja\frProdutos.pas',0,1,45,22,45,1,0
-File_1=SourceModule,'D:\Documents\Programação\DelphiProjects\Loja\Loja.dpr',0,1,1,55,15,0,0
-File_2=SourceModule,'D:\Documents\Programação\DelphiProjects\Loja\CadastroDeProdutos.pas',0,1,1,136,15,1,0
-File_3=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\coopcred\Coopcred\ufrAporte.pas',0,1,87,45,102,1,0
-File_4=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\coopcred\Coopcred\uFrRDia.pas',0,1,3183,27,3214,1,0
-File_5=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\coopcred\Coopcred\uDmGera.pas',0,1,1,69,7,1,0
-File_6=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\coopcred\ClassesCoopcred\ControladorCartaoSiga.pas',0,1,661,9,690,0,0
-File_7=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\Módulos\Programações\ufrProgramacaoInvestimentos.pas',0,1,1,5,6,1,0
-File_8=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\coopcred\Coopcred\uFrPrin.pas',0,1,2981,5,2987,1,0
-File_9=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Coopcred\Módulos\Programações\PlanoInvestimento\BOs\BOVencimentoDoInvestimentoMapping.pas',0,1,34,70,44,0,0
+File_0=SourceModule,'C:\Users\Trabalho\Desktop\teste maroto\Unit1.pas',0,1,43,119,51,1,0
+File_1=SourceModule,'C:\Program Files (x86)\Borland\Delphi7\Leosoft\Jazz\MVP\ErrosPresenter.pas',0,1,40,34,68,0,0
+File_2=SourceModule,'C:\Program Files (x86)\Borland\Delphi7\Leosoft\Jazz\MVP\FormErros.pas',0,1,4,13,1,1,0
+File_3=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frOperacoes.pas',0,1,1,157,5,1,1
+File_4=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frCategorias.pas',0,1,1,32,17,1,0
+File_5=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frUsuarios.pas',0,1,6,29,23,1,0
+File_6=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPessoas.pas',0,1,35,73,54,1,0
+File_7=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frProdutos.pas',0,1,71,21,73,1,1
+File_8=SourceModule,'C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frFormasDePagamento.pas',0,1,1,9,23,1,0
 
 [Modules]
-Module0=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frUsuarios.pas
-Module1=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\Loja.dpr
-Module2=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frCategorias.pas
-Module3=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPessoas.pas
-Module4=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frProdutos.pas
-Module5=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frFormasDePagamento.pas
-Module6=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frOperacoes.pas
-Count=7
+Module0=C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\ZqueryValidation.pas
+Module1=C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\frValidation.pas
+Module2=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\udmConexao.pas
+Module3=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPrin.pas
+Module4=c:\program files (x86)\borland\delphi7\source\vcl\DB.pas
+Module5=c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZAbstractRODataset.pas
+Module6=c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZAbstractDataset.pas
+Module7=c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZDataset.pas
+Module8=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frTeste.pas
+Module9=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\Loja.dpr
+Count=10
 EditWindowCount=1
+PackageWindowCount=1
 
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frUsuarios.pas]
+[C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\ZqueryValidation.pas]
 ModuleType=SourceModule
-FormState=1
-FormOnTop=1
+FormState=0
+FormOnTop=0
+
+[C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\frValidation.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\udmConexao.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPrin.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\source\vcl\DB.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZAbstractRODataset.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZAbstractDataset.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZDataset.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frTeste.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
 
 [C:\Users\Trabalho\Documents\GitHub\Loja\Loja\Loja.dpr]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frCategorias.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPessoas.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frProdutos.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frFormasDePagamento.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frOperacoes.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
+[C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\Components.dpk]
+FormState=0
+FormOnTop=1
 
 [C:\Program Files (x86)\Borland\Delphi7\Projects\ProjectGroup1.bpg]
 FormState=0
 FormOnTop=0
 
-[C:\Users\Trabalho\Documents\GitHub\Loja\Loja\udmConexao.pas]
-FormState=0
-FormOnTop=0
-
 [EditWindow0]
-ViewCount=7
-CurrentView=3
+ViewCount=10
+CurrentView=2
 View0=0
 View1=1
 View2=2
@@ -74,6 +92,9 @@ View3=3
 View4=4
 View5=5
 View6=6
+View7=7
+View8=8
+View9=9
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
@@ -91,60 +112,103 @@ ClientWidth=1920
 ClientHeight=870
 LeftPanelSize=326
 LeftPanelClients=CodeExplorer@EditWindow0,MIDEXForm,WatchWindow
-LeftPanelData=00000400010000000C000000436F64654578706C6F72657266030000000000000146010000000000000100000000C6020000090000004D49444558466F726D0100000000660300000B000000576174636857696E646F770100000000CA02000000000000FFFFFFFF
+LeftPanelData=00000400010000000C000000436F64654578706C6F726572CA020000000000000146010000000000000100000000C6020000090000004D49444558466F726D0100000000CA0200000B000000576174636857696E646F770100000000CA02000000000000FFFFFFFF
 RightPanelSize=0
-BottomPanelSize=0
+BottomPanelSize=153
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D65737361676556696577000000000000000000000000000000000001000000000000000000000000FFFFFFFF
+BottomPanelData=00000400000000008007000000000000029900000000000000010000000000000000000000000100000000800700000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frOperacoes.pas
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-
-[View1]
 Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\Loja.dpr
-CursorX=55
-CursorY=18
-TopLine=1
-LeftCol=1
-
-[View2]
-Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frCategorias.pas
-CursorX=32
-CursorY=17
-TopLine=1
-LeftCol=1
-
-[View3]
-Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frUsuarios.pas
-CursorX=29
-CursorY=23
-TopLine=6
-LeftCol=1
-
-[View4]
-Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPessoas.pas
-CursorX=5
-CursorY=55
-TopLine=55
-LeftCol=3
-
-[View5]
-Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frProdutos.pas
-CursorX=23
+CursorX=14
 CursorY=13
 TopLine=1
 LeftCol=1
 
+[View1]
+Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frTeste.pas
+CursorX=23
+CursorY=27
+TopLine=17
+LeftCol=1
+
+[View2]
+Module=C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\ZqueryValidation.pas
+CursorX=31
+CursorY=232
+TopLine=219
+LeftCol=1
+
+[View3]
+Module=c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZDataset.pas
+CursorX=27
+CursorY=85
+TopLine=80
+LeftCol=1
+
+[View4]
+Module=c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZAbstractDataset.pas
+CursorX=36
+CursorY=88
+TopLine=83
+LeftCol=1
+
+[View5]
+Module=c:\program files (x86)\borland\delphi7\Extras\Zeos\src\component\ZAbstractRODataset.pas
+CursorX=35
+CursorY=117
+TopLine=112
+LeftCol=1
+
 [View6]
-Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frFormasDePagamento.pas
+Module=c:\program files (x86)\borland\delphi7\source\vcl\DB.pas
 CursorX=1
-CursorY=26
+CursorY=1936
+TopLine=1913
+LeftCol=1
+
+[View7]
+Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\frPrin.pas
+CursorX=1
+CursorY=44
+TopLine=31
+LeftCol=1
+
+[View8]
+Module=C:\Users\Trabalho\Documents\GitHub\Loja\Loja\udmConexao.pas
+CursorX=5
+CursorY=24
 TopLine=1
 LeftCol=1
+
+[View9]
+Module=C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\frValidation.pas
+CursorX=45
+CursorY=5
+TopLine=1
+LeftCol=1
+
+[PackageWindow0]
+Create=1
+Visible=1
+State=0
+Left=252
+Top=241
+Width=368
+Height=244
+MaxLeft=-1
+MaxTop=-1
+ClientWidth=352
+ClientHeight=210
+TBDockHeight=244
+LRDockWidth=368
+Dockable=1
+StatusBar=0
+TextLabels=1
+Toolbar=1
+SectionWidth0=150
+SectionWidth1=202
+Module=C:\Users\Trabalho\Documents\GitHub\Loja\Componentes\Components.dpk
 
 [Watches]
 Count=0
@@ -158,11 +222,11 @@ State=0
 Left=0
 Top=722
 Width=326
-Height=148
+Height=0
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=326
-ClientHeight=148
+ClientHeight=0
 TBDockHeight=38
 LRDockWidth=326
 Dockable=1
@@ -177,7 +241,7 @@ Count=0
 Create=1
 Visible=1
 State=0
-Left=0
+Left=-8
 Top=0
 Width=1920
 Height=148
@@ -250,7 +314,7 @@ ClientHeight=60
 
 [PropertyInspector]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=1525
 Top=138
@@ -265,8 +329,8 @@ LRDockWidth=227
 Dockable=1
 SplitPos=126
 ArrangeBy=Name
-SelectedItem=Name
-ExpandedItems=Brush,DataBinding,DataController,Font.Style,GridView,GridView.DataController,Options,OptionsCustomize,OptionsData,OptionsSelection,OptionsView,RootLevelStyles,ShowRecordTypes
+SelectedItem=
+ExpandedItems=Brush,DataBinding,DataController,Font.Style,GridView,GridView.DataController,Options,OptionsCustomize,OptionsData,OptionsSelection,OptionsView,Properties,RootLevelStyles,ShowRecordTypes,Style
 HiddenCategories=
 
 [BreakpointWindow]
@@ -331,8 +395,8 @@ Column3Width=397
 Create=1
 Visible=0
 State=0
-Left=1566
-Top=106
+Left=1677
+Top=102
 Width=299
 Height=374
 MaxLeft=-1
@@ -599,7 +663,7 @@ Dockable=1
 
 [MessageView@EditWindow0]
 Create=1
-Visible=0
+Visible=1
 State=0
 Left=12
 Top=0

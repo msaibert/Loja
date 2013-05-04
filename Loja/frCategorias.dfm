@@ -1,16 +1,20 @@
 object TelaCategoriaProdutos: TTelaCategoriaProdutos
   Left = 894
   Top = 347
-  Width = 505
-  Height = 156
+  BorderStyle = bsNone
   Caption = 'Cadastro de Categorias de Produtos'
+  ClientHeight = 118
+  ClientWidth = 489
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  FormStyle = fsMDIChild
   OldCreateOrder = False
+  Position = poDefault
+  Visible = True
   PixelsPerInch = 96
   TextHeight = 13
   object nvCategorias: TcxDBNavigator

@@ -1,0 +1,96 @@
+package Components;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  dbrtl,
+  ZComponentDesign,
+  designide,
+  vclactnband,
+  vclx,
+  vcl,
+  dsnap,
+  vcldb,
+  vclimg,
+  dxCoreRS17,
+  cxDataRS17,
+  cxLibraryRS17,
+  dxGDIPlusRS17,
+  dxThemeRS17,
+  cxEditorsRS17,
+  cxPageControlRS17,
+  cxGridRS17,
+  dxSkinsCoreRS17,
+  dxSkinscxPCPainterRS17,
+  dxSkinBlackRS17,
+  dxSkinBlueRS17,
+  dxSkinCaramelRS17,
+  dxSkinCoffeeRS17,
+  dxSkinDarkRoomRS17,
+  dxSkinDarkSideRS17,
+  dxSkinFoggyRS17,
+  dxSkinGlassOceansRS17,
+  dxSkiniMaginaryRS17,
+  dxSkinLilianRS17,
+  dxSkinLiquidSkyRS17,
+  dxSkinLondonLiquidSkyRS17,
+  dxSkinMcSkinRS17,
+  dxSkinMoneyTwinsRS17,
+  dxSkinOffice2007BlackRS17,
+  dxSkinOffice2007BlueRS17,
+  dxSkinOffice2007GreenRS17,
+  dxSkinOffice2007PinkRS17,
+  dxSkinOffice2007SilverRS17,
+  dxSkinOffice2010BlackRS17,
+  dxSkinOffice2010BlueRS17,
+  dxSkinOffice2010SilverRS17,
+  dxSkinPumpkinRS17,
+  dxSkinSevenRS17,
+  dxSkinSharpRS17,
+  dxSkinSilverRS17,
+  dxSkinSpringTimeRS17,
+  dxSkinStardustRS17,
+  dxSkinSummer2008RS17,
+  dxSkinValentineRS17,
+  dxSkinXmas2008BlueRS17,
+  dxSkinBlueprintRS17,
+  dxSkinDevExpressDarkStyleRS17,
+  dxSkinDevExpressStyleRS17,
+  dxSkinHighContrastRS17,
+  dxSkinSevenClassicRS17,
+  dxSkinSharpPlusRS17,
+  dxSkinTheAsphaltWorldRS17,
+  dxSkinVS2010RS17,
+  dxSkinWhiteprintRS17;
+
+contains
+  ZqueryValidation in 'ZqueryValidation.pas',
+  frValidation in 'frValidation.pas' {FormValidation};
+
+end.

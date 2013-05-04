@@ -8,18 +8,18 @@ uses
   frCategorias in 'frCategorias.pas' {TelaCategoriaProdutos},
   frFormasDePagamento in 'frFormasDePagamento.pas' {TelaFormasDePagamento},
   frPessoas in 'frPessoas.pas' {TelaPessoas},
-  frUsuarios in 'frUsuarios.pas' {TelaUsuarios};
+  frUsuarios in 'frUsuarios.pas' {TelaUsuarios},
+  frPrin in 'frPrin.pas' {TelaPrincipal},
+  Vcl.Themes,
+  Vcl.Styles,
+  ufrRelatorios in '..\Componentes\Nova pasta\ufrRelatorios.pas' {frRelatorios};
 
 {$R *.res}
 
 begin
   Application.Initialize;
+
   Application.CreateForm(TdmConexao, dmConexao);
-  Application.CreateForm(TTelaUsuarios, TelaUsuarios);
-  Application.CreateForm(TTelaPessoas, TelaPessoas);
-  Application.CreateForm(TTelaFormasDePagamento, TelaFormasDePagamento);
-  Application.CreateForm(TTelaCategoriaProdutos, TelaCategoriaProdutos);
-  Application.CreateForm(TTelaOperacoes, TelaOperacoes);
-  Application.CreateForm(TTelaProdutos, TelaProdutos);
+  Application.CreateForm(TTelaPrincipal, TelaPrincipal);
   Application.Run;
 end.

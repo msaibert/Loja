@@ -1,16 +1,20 @@
 object TelaFormasDePagamento: TTelaFormasDePagamento
   Left = 378
   Top = 177
-  Width = 507
-  Height = 170
+  BorderStyle = bsNone
   Caption = 'Cadastro de Formas de Pagamento'
+  ClientHeight = 132
+  ClientWidth = 491
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  FormStyle = fsMDIChild
   OldCreateOrder = False
+  Position = poDefault
+  Visible = True
   PixelsPerInch = 96
   TextHeight = 13
   object lbCodigo: TcxLabel

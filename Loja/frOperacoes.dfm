@@ -1,16 +1,20 @@
 object TelaOperacoes: TTelaOperacoes
   Left = 853
   Top = 274
-  Width = 573
-  Height = 230
+  BorderStyle = bsNone
   Caption = 'Cadastro de opera'#231#245'es'
+  ClientHeight = 192
+  ClientWidth = 557
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  FormStyle = fsMDIChild
   OldCreateOrder = False
+  Position = poDefault
+  Visible = True
   PixelsPerInch = 96
   TextHeight = 13
   object edCodigo: TcxDBTextEdit
