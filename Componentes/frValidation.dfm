@@ -3,7 +3,7 @@ object FormValidation: TFormValidation
   Top = 225
   AutoSize = True
   Caption = 'Valida'#231#245'es'
-  ClientHeight = 512
+  ClientHeight = 471
   ClientWidth = 789
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,9 +13,7 @@ object FormValidation: TFormValidation
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
-  DesignSize = (
-    789
-    512)
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object gdErros: TcxGrid
@@ -59,15 +57,6 @@ object FormValidation: TFormValidation
       GridView = grErrosDBTableView
     end
   end
-  object Panel4: TPanel
-    Left = 0
-    Top = 471
-    Width = 789
-    Height = 41
-    Align = alClient
-    BevelOuter = bvNone
-    TabOrder = 1
-  end
   object pnErros: TPanel
     Left = 0
     Top = 0
@@ -83,7 +72,7 @@ object FormValidation: TFormValidation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     object imgErrors: TImage
       Left = 0
       Top = 0
@@ -1197,16 +1186,6 @@ object FormValidation: TFormValidation
       Caption = 'Os seguintes erros foram encontrados:'
     end
   end
-  object btOk: TcxButton
-    Left = 703
-    Top = 480
-    Width = 75
-    Height = 25
-    Anchors = [akBottom]
-    Caption = 'OK'
-    TabOrder = 3
-    OnClick = btOkClick
-  end
   object pnWarnings: TPanel
     Left = 0
     Top = 238
@@ -1222,7 +1201,7 @@ object FormValidation: TFormValidation
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 2
     object imgWarnings: TImage
       Left = 0
       Top = 0
@@ -2348,7 +2327,7 @@ object FormValidation: TFormValidation
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 3
     object grWarningsDBTableView: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dsWarning
@@ -2409,7 +2388,7 @@ object FormValidation: TFormValidation
       AssignedValues = [svFont, svTextColor]
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       TextColor = clRed
@@ -2418,7 +2397,7 @@ object FormValidation: TFormValidation
       AssignedValues = [svFont, svTextColor]
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       TextColor = 53970

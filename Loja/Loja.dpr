@@ -2,24 +2,32 @@ program Loja;
 
 uses
   Forms,
-  frProdutos in 'frProdutos.pas' {TelaProdutos},
   udmConexao in 'udmConexao.pas' {dmConexao: TDataModule},
-  frOperacoes in 'frOperacoes.pas' {TelaOperacoes},
-  frCategorias in 'frCategorias.pas' {TelaCategoriaProdutos},
-  frFormasDePagamento in 'frFormasDePagamento.pas' {TelaFormasDePagamento},
-  frPessoas in 'frPessoas.pas' {TelaPessoas},
-  frUsuarios in 'frUsuarios.pas' {TelaUsuarios},
-  frPrin in 'frPrin.pas' {TelaPrincipal},
+  ufrPrin in 'ufrPrin.pas' {frPrincipal},
   Vcl.Themes,
   Vcl.Styles,
-  ufrRelatorios in '..\Componentes\Nova pasta\ufrRelatorios.pas' {frRelatorios};
+  ufrRelatorios in '..\Componentes\Nova pasta\ufrRelatorios.pas' {frRelatorios},
+  ufrPadrao in 'ufrPadrao.pas' {frCadastroPadrao},
+  ufrPessoas in 'ufrPessoas.pas' {frPessoas},
+  ufrCategoriasProdutos in 'ufrCategoriasProdutos.pas' {frCategoriasProdutos},
+  ufrFormasPagamento in 'ufrFormasPagamento.pas' {frFormasPagamento},
+  ufrOperacoes in 'ufrOperacoes.pas' {frOperacoes},
+  ufrProdutos in 'ufrProdutos.pas' {frProdutos},
+  ufrUsuarios in 'ufrUsuarios.pas' {frUsuarios},
+  ufrCaixas in 'ufrCaixas.pas' {frCaixas},
+  ufrLogin in 'ufrLogin.pas' {frLogin},
+  ufrVendas in 'ufrVendas.pas' {frVendas},
+  ufrMovimentoDeEstoque in 'ufrMovimentoDeEstoque.pas' {frMovimentoDeEstoque},
+  udmVendas in 'udmVendas.pas' {dmVendas: TDataModule};
 
 {$R *.res}
 
 begin
   Application.Initialize;
 
+  TStyleManager.TrySetStyle('Iceberg Classico');
   Application.CreateForm(TdmConexao, dmConexao);
-  Application.CreateForm(TTelaPrincipal, TelaPrincipal);
+  Application.CreateForm(TfrPrincipal, frPrincipal);
+  Application.CreateForm(TdmVendas, dmVendas);
   Application.Run;
 end.

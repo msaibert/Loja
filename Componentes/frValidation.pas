@@ -31,13 +31,11 @@ type
     dsWarning: TDataSource;
     gdErros: TcxGrid;
     glErrosLevel: TcxGridLevel;
-    Panel4: TPanel;
     pnErros: TPanel;
     imgErrors: TImage;
     lbErrors: TLabel;
     srStyles: TcxStyleRepository;
     stErrors: TcxStyle;
-    btOk: TcxButton;
     pnWarnings: TPanel;
     imgWarnings: TImage;
     lbWarnings: TLabel;
@@ -50,6 +48,7 @@ type
     stWarning: TcxStyle;
     procedure FormCreate(Sender: TObject);
     procedure btOkClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -89,6 +88,12 @@ begin
   quWarning.CreateDataSet;
   quError.Open;
   quWarning.Open;
+end;
+
+procedure TFormValidation.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+    Self.Close;
 end;
 
 end.

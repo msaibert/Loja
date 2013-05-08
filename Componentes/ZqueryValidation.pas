@@ -6,7 +6,7 @@ uses
   SysUtils, Classes, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset;
 
 type
-  TOperator = (opEqual, opLess, opLessOrEqual, opGreater, opGreaterOrEqual, opLike, opStarstWith, opEndsWith, opBlank);
+  TOperator = (opEqual, opLess, opLessOrEqual, opGreater, opGreaterOrEqual, opLike, opStarstWith, opEndsWith, opNotBlank);
   TAction = (acError, acWarning);
 
 type
@@ -85,7 +85,6 @@ type
     procedure AddValidation(AField : String; AOperator : TOperator; AExpected : Variant; AMessage : String; AAction : TAction = acError; ANegate : Boolean = False);
     function isValid(AShowErrors : Boolean = True) : Boolean;
     procedure DoBeforePost; override;
-    procedure DoAfterEdit; override;
     { Public declarations }
   published
     { Published declarations }
@@ -184,7 +183,7 @@ begin
      opGreaterOrEqual : Result := FieldValue >= Expected;
      opLike           : Result := Pos(VarToStr(Expected), VarToStr(FieldValue)) > -1;
      opStarstWith     : Result := Pos(VarToStr(Expected), VarToStr(FieldValue)) = 0;
-     opBlank          : Result := (FieldValue =  Null) or (VarToStrDef(FieldValue, '') = '');
+     opNotBlank       : Result := not ((FieldValue =  Null) or (VarToStrDef(FieldValue, '') = ''));
    end;
    if Negate then
      Result := not Result;
@@ -218,11 +217,6 @@ begin
   Self.isValid(True);
 end;
 
-procedure TZqueryValidation.DoAfterEdit;
-begin
-  inherited;
-  Self.isValid(True);
-end;
 
 function TZqueryValidation.GetValidations: IInterfaceList;
 begin
