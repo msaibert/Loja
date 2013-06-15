@@ -8,6 +8,46 @@ uses
 type
   TOperator = (opEqual, opLess, opLessOrEqual, opGreater, opGreaterOrEqual, opLike, opStarstWith, opEndsWith, opNotBlank);
   TAction = (acError, acWarning);
+  TFunctionToExecute = function : Boolean of object;
+
+type
+  IFunctionValidation = interface(IInterface)
+  ['{522D20CA-5B5F-449E-BA8E-5618CC455D68}']
+    function GetFunctionToExecute : TFunctionToExecute;
+    function GetMessage : String;
+    function GetValid : Boolean;
+    function GetAction : TAction;
+    procedure SetAction(AAction : TAction);
+    procedure SetValid(AValid : Boolean);
+    procedure SetErrorMessage(AErrorMessage : string);
+    procedure SetFunctionToExecute(AProcedure : TFunctionToExecute);
+    property FunctionToExecute : TFunctionToExecute read GetFunctionToExecute write SetFunctionToExecute;
+    property Message : string read GetMessage write SetErrorMessage;
+    property Valid : Boolean read GetValid write SetValid;
+    property Action : TAction read GetAction write SetAction;
+  end;
+
+type
+  TFunctionValidation = class(TInterfacedObject, IFunctionValidation)
+  private
+    FProcedureToExecute : TFunctionToExecute;
+    FErrorMessage : String;
+    FValid : Boolean;
+    FAction : TAction;
+    function GetFunctionToExecute : TFunctionToExecute;
+    function GetMessage : String;
+    function GetValid : Boolean;
+    function GetAction : TAction;
+    procedure SetAction(AAction : TAction);
+    procedure SetValid(AValid : Boolean);
+    procedure SetErrorMessage(AErrorMessage : string);
+    procedure SetFunctionToExecute(AProcedure : TFunctionToExecute);
+  public
+    property FunctionToExecute : TFunctionToExecute read GetFunctionToExecute write SetFunctionToExecute;
+    property Message : string read GetMessage write SetErrorMessage;
+    property Valid : Boolean read GetValid write SetValid;
+    property Action : TAction read GetAction write SetAction;
+  end;
 
 type
   IValidation = interface(IInterface)
@@ -74,15 +114,20 @@ type
   TZqueryValidation = class(TZQuery)
   private
     FValidations: IInterfaceList;
+    FFunctionsValidations : IInterfaceList;
     function GetValidations: IInterfaceList;
     procedure SetValidations(const Value: IInterfaceList);
+    function GetFunctionsValidations: IInterfaceList;
+    procedure SetFunctionsValidations(const Value: IInterfaceList);
     { Private declarations }
   protected
     { Protected declarations }
   public
     constructor Create(AOwner : TComponent); override;
     property Validations: IInterfaceList read GetValidations write SetValidations;
-    procedure AddValidation(AField : String; AOperator : TOperator; AExpected : Variant; AMessage : String; AAction : TAction = acError; ANegate : Boolean = False);
+    property FunctionsValidations : IInterfaceList read GetFunctionsValidations write SetFunctionsValidations;
+    procedure AddValidation(AField : String; AOperator : TOperator; AExpected : Variant; AMessage : String; AAction : TAction = acError; ANegate : Boolean = False); overload;
+    procedure AddValidation(AFunction : TFunctionToExecute; AMessage : string; AAction : TAction = acError); overload;
     function isValid(AShowErrors : Boolean = True) : Boolean;
     procedure DoBeforePost; override;
     { Public declarations }
@@ -205,10 +250,22 @@ begin
   Validations.Add(AValidation);
 end;
 
+
+procedure TZqueryValidation.AddValidation(AFunction: TFunctionToExecute; AMessage: string; AAction : TAction = acError);
+var
+  AFunctionValidation : IFunctionValidation;
+begin
+  AFunctionValidation := TFunctionValidation.Create;
+  AFunctionValidation.FunctionToExecute := AFunction;
+  AFunctionValidation.Message := AMessage;
+  FunctionsValidations.Add(AFunctionValidation);
+end;
+
 constructor TZqueryValidation.Create(AOwner: TComponent);
 begin
   inherited;
   Validations := TInterfaceList.Create;
+  FunctionsValidations := TInterfaceList.Create;
 end;
 
 procedure TZqueryValidation.DoBeforePost;
@@ -217,6 +274,11 @@ begin
   Self.isValid(True);
 end;
 
+
+function TZqueryValidation.GetFunctionsValidations: IInterfaceList;
+begin
+  Result := FFunctionsValidations;
+end;
 
 function TZqueryValidation.GetValidations: IInterfaceList;
 begin
@@ -229,10 +291,12 @@ var
   LMessageErrors, LMessageWarnings : String;
   LFormValidation : TFormValidation;
   LValidation : IValidation;
+  LFunctionValidation : IFunctionValidation;
 begin
   try
     Result := True;
     LFormValidation := TFormValidation.Create(nil);
+
     for i := 0 to Validations.Count-1 do
     begin
       LValidation := (Validations[i] as IValidation);
@@ -249,6 +313,24 @@ begin
           Inc(LWarnings);
           LFormValidation.AddWarning(LValidation.Message);
         end;
+      end;
+    end;
+
+    for I := 0 to FunctionsValidations.Count-1 do
+    begin
+      LFunctionValidation := (FunctionsValidations[i] as IFunctionValidation);
+      if not LFunctionValidation.FunctionToExecute then
+      begin
+         if LFunctionValidation.Action = acError then
+         begin
+           Inc(LErros);
+           LFormValidation.AddError(LFunctionValidation.Message);
+         end
+         else
+         begin
+           Inc(LWarnings);
+           LFormValidation.AddError(LFunctionValidation.Message);
+         end;
       end;
     end;
 
@@ -271,9 +353,57 @@ begin
   end;
 end;
 
+procedure TZqueryValidation.SetFunctionsValidations(const Value: IInterfaceList);
+begin
+  FFunctionsValidations := Value;
+end;
+
 procedure TZqueryValidation.SetValidations(const Value: IInterfaceList);
 begin
   FValidations := Value;
+end;
+
+{ TProcedureValidation }
+
+function TFunctionValidation.GetAction: TAction;
+begin
+  Result := FAction;
+end;
+
+function TFunctionValidation.GetMessage: String;
+begin
+  Result := FErrorMessage;
+end;
+
+function TFunctionValidation.GetFunctionToExecute: TFunctionToExecute;
+begin
+  Result := FProcedureToExecute;
+end;
+
+function TFunctionValidation.GetValid: Boolean;
+begin
+  Result := FValid;
+end;
+
+procedure TFunctionValidation.SetAction(AAction: TAction);
+begin
+  FAction := AAction;
+end;
+
+procedure TFunctionValidation.SetErrorMessage(AErrorMessage: string);
+begin
+  FErrorMessage := AErrorMessage;
+end;
+
+procedure TFunctionValidation.SetFunctionToExecute(
+  AProcedure: TFunctionToExecute);
+begin
+  FProcedureToExecute := AProcedure;
+end;
+
+procedure TFunctionValidation.SetValid(AValid: Boolean);
+begin
+  FValid := AValid;
 end;
 
 end.

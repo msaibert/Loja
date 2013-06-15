@@ -31,6 +31,14 @@ type
     dsLogin: TDataSource;
     lbErro: TcxLabel;
     procedure btLogarClick(Sender: TObject);
+    procedure lcUserEnter(Sender: TObject);
+    procedure edSenhaEnter(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure lcUserKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edSenhaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -51,9 +59,52 @@ begin
   if quLogin.FieldByName('senha').AsString = edSenha.Text then
   begin
     Self.Close;
+    dmConexao.FUsuarioLogado := quLogin.FieldByName('id').AsInteger;
   end
   else
     lbErro.Visible := True;
 end;
+
+procedure TfrLogin.edSenhaEnter(Sender: TObject);
+begin
+  lbErro.Visible := False;
+end;
+
+procedure TfrLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+//  Application.Terminate;
+end;
+
+procedure TfrLogin.FormCreate(Sender: TObject);
+begin
+  quLogin.Active := True;
+end;
+
+procedure TfrLogin.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if Key = VK_ESCAPE then
+     Self.Close;
+end;
+
+procedure TfrLogin.lcUserEnter(Sender: TObject);
+begin
+  lbErro.Visible := False;
+end;
+
+procedure TfrLogin.lcUserKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if Key = VK_RETURN then
+     edSenha.SetFocus;
+end;
+
+procedure TfrLogin.edSenhaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+    btLogar.SetFocus;
+end;
+
 
 end.

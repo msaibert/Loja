@@ -2,6 +2,7 @@ inherited frCaixas: TfrCaixas
   Caption = 'Cadastro de Caixas'
   ClientHeight = 201
   OnCreate = FormCreate
+  ExplicitWidth = 651
   ExplicitHeight = 239
   PixelsPerInch = 96
   TextHeight = 13
@@ -80,7 +81,6 @@ inherited frCaixas: TfrCaixas
   end
   object quOperador: TZQuery
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
       
         'select usuarios.*, pessoas.nome from usuarios join pessoas on us' +

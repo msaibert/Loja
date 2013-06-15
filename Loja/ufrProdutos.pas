@@ -19,13 +19,12 @@ uses
   dxSkinXmas2008Blue, cxContainer, cxEdit, cxDBLookupComboBox, cxDBEdit,
   cxCurrencyEdit, Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
   ZqueryValidation, cxLabel, cxTextEdit, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxNavigator, cxDBNavigator;
+  cxLookupEdit, cxDBLookupEdit, cxNavigator, cxDBNavigator, Vcl.Menus, frxClass,
+  frxDBSet, Vcl.StdCtrls, cxButtons;
 
 type
   TfrProdutos = class(TfrCadastroPadrao)
     lbCodigo: TcxLabel;
-    edPrecoCusto: TcxDBCurrencyEdit;
-    lbPrecoCusto: TcxLabel;
     lbPrecoFinal: TcxLabel;
     edPrecoFinal: TcxDBCurrencyEdit;
     lbCategoria: TcxLabel;
@@ -35,7 +34,12 @@ type
     lcCategoria: TcxDBLookupComboBox;
     quCategoria: TZQuery;
     dsCategoria: TDataSource;
+    btRelatorio: TcxButton;
+    rpProdutos: TfrxReport;
+    fqRelatorio: TfrxDBDataset;
+    quRelatorio: TZQuery;
     procedure FormCreate(Sender: TObject);
+    procedure btRelatorioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,9 +53,15 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrProdutos.btRelatorioClick(Sender: TObject);
+begin
+  rpProdutos.ShowReport;
+end;
+
 procedure TfrProdutos.FormCreate(Sender: TObject);
 begin
   inherited;
+  quCategoria.Active := True;
   quDados.AddValidation('descricao', opNotBlank, null, 'Campo descrição deve ser preenchido..');
   quDados.AddValidation('categoria_id', opGreater, 0, 'Campo categoria deve ser preenchido.');
   quDados.AddValidation('preco_final', opGreater, 0.00, 'Campo preço final deve ser preenchido.');

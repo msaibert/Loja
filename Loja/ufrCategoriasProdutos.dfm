@@ -2,7 +2,6 @@ inherited frCategoriasProdutos: TfrCategoriasProdutos
   Caption = 'Cadastro de Categorias de Produtos'
   ClientHeight = 166
   ClientWidth = 507
-  OnCreate = FormCreate
   ExplicitWidth = 523
   ExplicitHeight = 204
   PixelsPerInch = 96
@@ -56,7 +55,6 @@ inherited frCategoriasProdutos: TfrCategoriasProdutos
     Width = 121
   end
   inherited quDados: TZqueryValidation
-    Active = True
     SQL.Strings = (
       'select * from categorias_produtos;')
   end

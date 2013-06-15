@@ -47,6 +47,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private
+    function ValidaSeDocumentoJaEstaCadastrado: Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -56,6 +57,9 @@ var
   frPessoas: TfrPessoas;
 
 implementation
+
+uses
+  uSQLUtil;
 
 {$R *.dfm}
 
@@ -68,10 +72,20 @@ end;
 procedure TfrPessoas.FormCreate(Sender: TObject);
 begin
   inherited;
+  quCidades.Active := True;
   quDados.AddValidation('nome', opNotBlank, null, 'Campo nome deve ser preenchido.');
   quDados.AddValidation('sexo', opNotBlank, null, 'Campo sexo deve ser preenchido.');
-  quDados.AddValidation('documento', opNotBlank, null, 'Campo documento não foi preenchido', acWarning);
-  quDados.AddValidation('telefone', opNotBlank, null, 'Campo telefone não foi preenchido', acWarning);
+  quDados.AddValidation('documento', opNotBlank, null, 'Campo documento não foi preenchido.', acWarning);
+  quDados.AddValidation('telefone', opNotBlank, null, 'Campo telefone não foi preenchido.', acWarning);
+  quDados.AddValidation(ValidaSeDocumentoJaEstaCadastrado, 'Documento já cadastrado para outra pessoa.');
+end;
+
+function TfrPessoas.ValidaSeDocumentoJaEstaCadastrado : Boolean;
+var
+  LDataSet : TZQuery;
+begin
+  Result := (quDados.FieldByName('documento').AsString = '') or
+             GetBooleanThroughSQL('select count(*) = 0 from pessoas where documento = $$' + quDados.FieldByName('documento').AsString + '$$');
 end;
 
 end.

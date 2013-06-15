@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, ZqueryValidation, Data.DB,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset;
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Datasnap.DBClient;
 
 type
   TdmVendas = class(TDataModule)
@@ -18,7 +18,19 @@ type
     dsVendas: TDataSource;
     quVendaItens: TZqueryValidation;
     dsVendaItens: TDataSource;
-    quPadroes: TZQuery;
+    quFormaDePagamento: TZQuery;
+    dsFormaDePagamento: TDataSource;
+    quOperacao: TZQuery;
+    dsOperacao: TDataSource;
+    quMovimentoCaixa: TZQuery;
+    dsMovimentoCaixa: TDataSource;
+    quMovimentoEstoque: TZQuery;
+    dsMovimentoEstoque: TDataSource;
+    quMovimentoPendencia: TZQuery;
+    dsMovimentoPendencia: TDataSource;
+    quPessoa: TZQuery;
+    dsPessoa: TDataSource;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,5 +47,12 @@ implementation
 uses udmConexao;
 
 {$R *.dfm}
+
+procedure TdmVendas.DataModuleCreate(Sender: TObject);
+begin
+  quUsuario.Filtered := False;
+  quUsuario.Filter := 'id = ' + IntToStr(dmConexao.FUsuarioLogado);
+  quUsuario.Filtered := True;
+end;
 
 end.

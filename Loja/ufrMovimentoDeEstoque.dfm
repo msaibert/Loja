@@ -74,7 +74,7 @@ object frMovimentoDeEstoque: TfrMovimentoDeEstoque
       end>
     Properties.ListFieldIndex = 1
     Properties.ListSource = dsOperacoes
-    TabOrder = 2
+    TabOrder = 1
     Width = 537
   end
   object lbOperacao: TcxLabel
@@ -180,7 +180,6 @@ object frMovimentoDeEstoque: TfrMovimentoDeEstoque
   end
   object quMovimento: TZqueryValidation
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
       
         'select *, (valor_unitario * quantidade) as valor_total from movi' +
@@ -196,9 +195,10 @@ object frMovimentoDeEstoque: TfrMovimentoDeEstoque
   end
   object quOperacoes: TZQuery
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
-      'select * from operacoes;')
+      
+        'select * from operacoes where movimentar_estoque and not movimen' +
+        'tar_caixa and not movimentar_pendura;')
     Params = <>
     Left = 8
     Top = 296
@@ -210,7 +210,6 @@ object frMovimentoDeEstoque: TfrMovimentoDeEstoque
   end
   object quProdutos: TZQuery
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
       'select * from produtos;')
     Params = <>

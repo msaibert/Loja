@@ -79,6 +79,9 @@ end;
 
 procedure TfrMovimentoDeEstoque.FormCreate(Sender: TObject);
 begin
+  quOperacoes.Active := True;
+  quProdutos.Active := True;
+  quMovimento.Active := True;
   quMovimento.AddValidation('operacao_id', opGreater, 0, 'Campo operação deve ser preenchido');
   quMovimento.AddValidation('produto_id', opGreater, 0, 'Campo produto deve ser preenchido');
   quMovimento.AddValidation('quantidade', opGreater, 0, 'Campo quantidade deve ser preenchido');

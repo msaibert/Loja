@@ -48,6 +48,7 @@ implementation
 procedure TfrCaixas.FormCreate(Sender: TObject);
 begin
   inherited;
+  quOperador.Active := True;
   quDados.AddValidation('descricao', opNotBlank, Null, 'Campo descrição deve ser preenchido.');
   quDados.AddValidation('usuario_id', opGreater, 0, 'Campo operador do caixa deve ser preenchido');
 end;

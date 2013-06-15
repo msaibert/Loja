@@ -2,16 +2,24 @@ object FormValidation: TFormValidation
   Left = 344
   Top = 225
   AutoSize = True
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Valida'#231#245'es'
-  ClientHeight = 471
-  ClientWidth = 789
+  ClientHeight = 472
+  ClientWidth = 594
   Color = clBtnFace
+  Constraints.MaxHeight = 500
+  Constraints.MaxWidth = 600
+  Constraints.MinHeight = 500
+  Constraints.MinWidth = 600
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
@@ -19,7 +27,7 @@ object FormValidation: TFormValidation
   object gdErros: TcxGrid
     Left = 0
     Top = 25
-    Width = 789
+    Width = 594
     Height = 213
     Align = alTop
     Font.Charset = DEFAULT_CHARSET
@@ -29,6 +37,7 @@ object FormValidation: TFormValidation
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 789
     object grErrosDBTableView: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dsError
@@ -60,7 +69,7 @@ object FormValidation: TFormValidation
   object pnErros: TPanel
     Left = 0
     Top = 0
-    Width = 789
+    Width = 594
     Height = 25
     Align = alTop
     Alignment = taLeftJustify
@@ -73,6 +82,7 @@ object FormValidation: TFormValidation
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 789
     object imgErrors: TImage
       Left = 0
       Top = 0
@@ -1189,7 +1199,7 @@ object FormValidation: TFormValidation
   object pnWarnings: TPanel
     Left = 0
     Top = 238
-    Width = 789
+    Width = 594
     Height = 25
     Align = alTop
     Alignment = taLeftJustify
@@ -1202,6 +1212,8 @@ object FormValidation: TFormValidation
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
+    ExplicitTop = 232
+    ExplicitWidth = 789
     object imgWarnings: TImage
       Left = 0
       Top = 0
@@ -2318,7 +2330,7 @@ object FormValidation: TFormValidation
   object gdWarnings: TcxGrid
     Left = 0
     Top = 263
-    Width = 789
+    Width = 594
     Height = 208
     Align = alTop
     Font.Charset = DEFAULT_CHARSET
@@ -2328,6 +2340,7 @@ object FormValidation: TFormValidation
     Font.Style = []
     ParentFont = False
     TabOrder = 3
+    ExplicitWidth = 789
     object grWarningsDBTableView: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dsWarning

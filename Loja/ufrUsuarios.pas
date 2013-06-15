@@ -57,11 +57,12 @@ end;
 procedure TfrUsuarios.FormCreate(Sender: TObject);
 begin
   inherited;
+  quPessoa.Active := True;
   quDados.AddValidation('pessoa_id', opGreater, 0, 'Campo pessoa deve ser preenchido.');
   quDados.AddValidation('login', opNotBlank, Null, 'Campo login deve ser preenchido.');
   quDados.AddValidation('senha', opNotBlank, Null, 'Campo senha deve ser preenchido.');
   quDados.AddValidation('senha', opEqual, edConfirmarSenha.Text, 'Senha e Confirmação de senha não correspondem.');
-
 end;
+
 
 end.

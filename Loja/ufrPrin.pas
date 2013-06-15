@@ -8,7 +8,7 @@ uses
 
 type
   TfrPrincipal = class(TForm)
-    MainMenu: TMainMenu;
+    mmPrin: TMainMenu;
     miCadastros: TMenuItem;
     miPessoas: TMenuItem;
     miUsuarios: TMenuItem;
@@ -21,6 +21,8 @@ type
     miEstoque: TMenuItem;
     miVendas: TMenuItem;
     miCaixas: TMenuItem;
+    miPadroes: TMenuItem;
+    miPagamentodePendencias: TMenuItem;
     procedure miUsuariosClick(Sender: TObject);
     procedure miProdutosClick(Sender: TObject);
     procedure miCategoriasClick(Sender: TObject);
@@ -28,9 +30,11 @@ type
     procedure miFormasdePagamentoClick(Sender: TObject);
     procedure miPessoasClick(Sender: TObject);
     procedure miCaixasClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure miEstoqueClick(Sender: TObject);
     procedure miVendasClick(Sender: TObject);
+    procedure miPadroesClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure miPagamentodePendenciasClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,7 +48,7 @@ implementation
 
 uses ufrUsuarios, ufrOperacoes,
   ufrProdutos, ufrPessoas, ufrCategoriasProdutos, ufrFormasPagamento, ufrCaixas,
-  ufrLogin, ufrMovimentoDeEstoque, ufrVendas;
+  ufrLogin, ufrMovimentoDeEstoque, ufrVendas, ufrPadroes, ufrPagarPendencias;
 
 {$R *.dfm}
 
@@ -58,6 +62,16 @@ begin
   Application.CreateForm(TfrVendas, frVendas);
 end;
 
+procedure TfrPrincipal.miPadroesClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrPadroes, frPadroes);
+end;
+
+procedure TfrPrincipal.miPagamentodePendenciasClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrPagarPendencias, frPagarPendencias);
+end;
+
 procedure TfrPrincipal.miPessoasClick(Sender: TObject);
 begin
   Application.CreateForm(TfrPessoas, frPessoas);
@@ -65,16 +79,13 @@ end;
 
 procedure TfrPrincipal.miProdutosClick(Sender: TObject);
 begin
-    Application.CreateForm(TfrProdutos, frProdutos);
+  Application.CreateForm(TfrProdutos, frProdutos);
 end;
 
 procedure TfrPrincipal.FormCreate(Sender: TObject);
-//var
-//  LFormLogin : TfrLogin;
 begin
-//  LFormLogin := TfrLogin.Create(Self);
-//  LFormLogin.ShowModal;
-//  LFormLogin.Free;
+  frLogin := TfrLogin.Create(nil);
+  frLogin.ShowModal;
 end;
 
 procedure TfrPrincipal.miCaixasClick(Sender: TObject);

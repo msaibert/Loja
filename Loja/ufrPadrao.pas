@@ -30,6 +30,7 @@ type
     lbPesquisa: TcxLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure lcPesquisaExit(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,7 +48,13 @@ uses udmConexao;
 
 procedure TfrCadastroPadrao.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  quDados.Free;
   Action := caFree;
+end;
+
+procedure TfrCadastroPadrao.FormCreate(Sender: TObject);
+begin
+  quDados.Active := True;
 end;
 
 procedure TfrCadastroPadrao.lcPesquisaExit(Sender: TObject);

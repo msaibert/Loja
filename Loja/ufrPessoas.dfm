@@ -1,16 +1,18 @@
 inherited frPessoas: TfrPessoas
   Caption = 'Cadastro de Pessoas'
   ClientHeight = 381
-  OnCreate = FormCreate
-  ExplicitWidth = 651
+  ClientWidth = 588
+  ExplicitWidth = 604
   ExplicitHeight = 419
   PixelsPerInch = 96
   TextHeight = 13
   inherited nvDados: TcxDBNavigator
-    Top = 351
+    Left = 325
+    Top = 343
     Height = 22
     TabOrder = 21
-    ExplicitTop = 351
+    ExplicitLeft = 325
+    ExplicitTop = 343
     ExplicitHeight = 22
   end
   inherited lcPesquisa: TcxLookupComboBox
@@ -26,6 +28,8 @@ inherited frPessoas: TfrPessoas
         FieldName = 'documento'
       end>
     Properties.ListFieldIndex = 1
+    ExplicitWidth = 569
+    Width = 569
   end
   object lbCodigo: TcxLabel [3]
     Left = 24
@@ -103,7 +107,7 @@ inherited frPessoas: TfrPessoas
     Properties.IgnoreMaskBlank = True
     Properties.EditMask = '!\(99\) 0000-0000;0;_'
     Properties.MaxLength = 0
-    TabOrder = 13
+    TabOrder = 11
     Width = 121
   end
   object lbTelefone: TcxLabel [14]
@@ -183,28 +187,26 @@ inherited frPessoas: TfrPessoas
     Width = 121
   end
   inherited quDados: TZqueryValidation
-    Active = True
     SQL.Strings = (
       'select * from pessoas;')
-    Left = 584
+    Left = 480
     Top = 256
   end
   inherited dsDados: TDataSource
-    Left = 592
+    Left = 488
     Top = 304
   end
   object quCidades: TZQuery
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
       'select * from cidades')
     Params = <>
-    Left = 592
+    Left = 488
     Top = 200
   end
   object dsCidades: TDataSource
     DataSet = quCidades
-    Left = 592
+    Left = 488
     Top = 152
   end
 end

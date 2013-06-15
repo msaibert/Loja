@@ -29,6 +29,7 @@ type
     edCodigo: TcxDBTextEdit;
     procedure FormCreate(Sender: TObject);
   private
+    function ValidaParaQueCateriaJaUsadaNaoSejaAlterada: Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -39,12 +40,25 @@ var
 
 implementation
 
+uses
+  uSQLUtil;
+
 {$R *.dfm}
 
 procedure TfrCategoriasProdutos.FormCreate(Sender: TObject);
 begin
   inherited;
   quDados.AddValidation('descricao', opNotBlank, null, 'Campo descrição deve ser preenchido.');
+  quDados.AddValidation(ValidaParaQueCateriaJaUsadaNaoSejaAlterada, 'Você não pode alterar essa categoria de produto, pois ela já esta vinculada a produtos cadastrados.');
+end;
+
+function TfrCategoriasProdutos.ValidaParaQueCateriaJaUsadaNaoSejaAlterada : Boolean;
+begin
+  Result := True;
+  if quDados.FieldByName('id').AsInteger = 0 then
+    Exit;
+  if quDados.FieldByName('descricao').Value <> quDados.FieldByName('descricao').OldValue then
+    Result := GetBooleanThroughSQL('select count(*) = 0 from produtos where categoria_id = $$' + quDados.FieldByName('id').AsString + '$$');
 end;
 
 end.

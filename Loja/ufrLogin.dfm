@@ -1,6 +1,7 @@
 object frLogin: TfrLogin
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   Caption = 'EasySale'
   ClientHeight = 275
   ClientWidth = 409
@@ -10,10 +11,13 @@ object frLogin: TfrLogin
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsStayOnTop
+  KeyPreview = True
   OldCreateOrder = False
+  PopupMode = pmAuto
   Position = poDesktopCenter
-  Visible = True
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object igLogo: TImage
@@ -2890,6 +2894,8 @@ object frLogin: TfrLogin
     Properties.ListOptions.SyncMode = True
     Properties.ListSource = dsLogin
     TabOrder = 0
+    OnEnter = lcUserEnter
+    OnKeyDown = lcUserKeyDown
     Width = 369
   end
   object edSenha: TcxMaskEdit
@@ -2897,6 +2903,8 @@ object frLogin: TfrLogin
     Top = 221
     Properties.EchoMode = eemPassword
     TabOrder = 1
+    OnEnter = edSenhaEnter
+    OnKeyDown = edSenhaKeyDown
     Width = 369
   end
   object btLogar: TcxButton
@@ -2904,7 +2912,7 @@ object frLogin: TfrLogin
     Top = 248
     Width = 75
     Height = 25
-    Caption = 'Lucrar'
+    Caption = 'Acessar'
     TabOrder = 2
     OnClick = btLogarClick
   end
@@ -2923,17 +2931,17 @@ object frLogin: TfrLogin
     Style.Font.Style = [fsBold]
     Style.TransparentBorder = True
     Style.IsFontAssigned = True
+    Transparent = True
     Visible = False
     Height = 17
     Width = 169
   end
   object quLogin: TZqueryValidation
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
       
-        'select usuarios.*, pessoas.nome from usuarios join pessoas on us' +
-        'uarios.pessoa_id = pessoas.id;')
+        'select usuarios.*, pessoas.nome from usuarios left join pessoas ' +
+        'on (usuarios.pessoa_id = pessoas.id);')
     Params = <>
     Left = 200
     Top = 240

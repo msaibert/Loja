@@ -14,6 +14,7 @@ object frCadastroPadrao: TfrCadastroPadrao
   OldCreateOrder = False
   Visible = True
   OnClose = FormClose
+  OnCreate = FormCreate
   DesignSize = (
     635
     463)

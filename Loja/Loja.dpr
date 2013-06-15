@@ -18,16 +18,22 @@ uses
   ufrLogin in 'ufrLogin.pas' {frLogin},
   ufrVendas in 'ufrVendas.pas' {frVendas},
   ufrMovimentoDeEstoque in 'ufrMovimentoDeEstoque.pas' {frMovimentoDeEstoque},
-  udmVendas in 'udmVendas.pas' {dmVendas: TDataModule};
+  udmVendas in 'udmVendas.pas' {dmVendas: TDataModule},
+  uStringUtil in 'uStringUtil.pas',
+  uSQLUtil in 'uSQLUtil.pas',
+  uMathUtil in 'uMathUtil.pas',
+  ufrCancelarItem in 'ufrCancelarItem.pas' {frCancelarItem},
+  ufrPadroes in 'ufrPadroes.pas' {frPadroes},
+  ufrControleDeCaixa in 'ufrControleDeCaixa.pas' {frControleDeCaixa},
+  ufrRelatorioCaixa in 'ufrRelatorioCaixa.pas' {frRelatorioCaixa},
+  ufrPagarPendencias in 'ufrPagarPendencias.pas' {frPagarPendencias};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-
-  TStyleManager.TrySetStyle('Iceberg Classico');
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TfrPrincipal, frPrincipal);
-  Application.CreateForm(TdmVendas, dmVendas);
+  Application.CreateForm(TfrRelatorioCaixa, frRelatorioCaixa);
   Application.Run;
 end.

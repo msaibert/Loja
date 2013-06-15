@@ -75,7 +75,6 @@ inherited frFormasPagamento: TfrFormasPagamento
     Width = 177
   end
   inherited quDados: TZqueryValidation
-    Active = True
     SQL.Strings = (
       'select * from formas_de_pagamento;')
   end
