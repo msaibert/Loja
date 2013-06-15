@@ -66,15 +66,10 @@ object frControleDeCaixa: TfrControleDeCaixa
     TabOrder = 4
     object grMoedas: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
-      OnEditChanged = grMoedasEditChanged
       DataController.DataSource = dsMoedasControle
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      OptionsData.CancelOnExit = False
-      OptionsData.Deleting = False
-      OptionsData.DeletingConfirmation = False
-      OptionsData.Inserting = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object clExtenso: TcxGridDBColumn
@@ -86,6 +81,7 @@ object frControleDeCaixa: TfrControleDeCaixa
           item
             FieldName = 'extenso'
           end>
+        Properties.ListOptions.SyncMode = True
         Properties.ListSource = dsMoedas
         Options.Editing = False
       end
@@ -98,6 +94,7 @@ object frControleDeCaixa: TfrControleDeCaixa
           item
             FieldName = 'valor'
           end>
+        Properties.ListOptions.SyncMode = True
         Properties.ListSource = dsMoedas
         Options.Editing = False
       end
@@ -105,12 +102,10 @@ object frControleDeCaixa: TfrControleDeCaixa
         Caption = 'Quantidade'
         DataBinding.FieldName = 'quantidade'
         PropertiesClassName = 'TcxSpinEditProperties'
-        Properties.AssignedValues.MinValue = True
       end
       object clTotal: TcxGridDBColumn
         Caption = 'Total'
         DataBinding.FieldName = 'total'
-        PropertiesClassName = 'TcxCurrencyEditProperties'
         Options.Editing = False
       end
     end

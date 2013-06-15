@@ -401,7 +401,6 @@ inherited frProdutos: TfrProdutos
   end
   object quRelatorio: TZQuery
     Connection = dmConexao.connectionSistema
-    Active = True
     SQL.Strings = (
       'select '
       #9'produtos.id, '

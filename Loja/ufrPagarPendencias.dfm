@@ -159,8 +159,8 @@ object frPagarPendencias: TfrPagarPendencias
       Properties.ListFieldIndex = 1
       Properties.ListOptions.SyncMode = True
       Properties.ListSource = dsOperacoes
+      Properties.OnChange = lcOperacaoPropertiesChange
       TabOrder = 3
-      OnExit = lcOperacaoExit
       Width = 831
     end
   end
@@ -280,7 +280,7 @@ object frPagarPendencias: TfrPagarPendencias
     CachedUpdates = True
     SQL.Strings = (
       'select '
-      #9'pessoas.id,'
+      #9'pessoas.id as pessoa_id,'
       #9'pessoas.nome, '
       #9'movimento_pendencia.venda_id, '
       #9'min(data) as data_compra, '
@@ -304,30 +304,6 @@ object frPagarPendencias: TfrPagarPendencias
     Params = <>
     Left = 584
     Top = 224
-    object ifPendenciasid: TIntegerField
-      FieldName = 'id'
-      Required = True
-    end
-    object quPendenciasnome: TWideStringField
-      FieldName = 'nome'
-      Required = True
-      Size = 120
-    end
-    object ifPendenciasvenda_id1: TIntegerField
-      FieldName = 'venda_id'
-    end
-    object dfPendenciasdata_compra1: TDateField
-      FieldName = 'data_compra'
-      ReadOnly = True
-    end
-    object dfPendenciasultimo_pgto_venda: TDateField
-      FieldName = 'ultimo_pgto_venda'
-      ReadOnly = True
-    end
-    object ffPendenciassaldo1: TFloatField
-      FieldName = 'saldo'
-      ReadOnly = True
-    end
   end
   object dsPendencias: TDataSource
     DataSet = cdPendencias

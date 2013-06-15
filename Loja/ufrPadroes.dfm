@@ -13,6 +13,7 @@ object frPadroes: TfrPadroes
   FormStyle = fsMDIChild
   OldCreateOrder = False
   Visible = True
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object edCNPJ: TcxDBMaskEdit

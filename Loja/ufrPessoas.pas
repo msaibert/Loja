@@ -84,8 +84,10 @@ function TfrPessoas.ValidaSeDocumentoJaEstaCadastrado : Boolean;
 var
   LDataSet : TZQuery;
 begin
-  Result := (quDados.FieldByName('documento').AsString = '') or
-             GetBooleanThroughSQL('select count(*) = 0 from pessoas where documento = $$' + quDados.FieldByName('documento').AsString + '$$');
+  Result := True;
+  if quDados.State = dsInsert then  
+    Result := (quDados.FieldByName('documento').AsString = '') or
+               GetBooleanThroughSQL('select count(*) = 0 from pessoas where documento = $$' + quDados.FieldByName('documento').AsString + '$$');
 end;
 
 end.

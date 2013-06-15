@@ -55,6 +55,8 @@ implementation
 
 procedure TfrProdutos.btRelatorioClick(Sender: TObject);
 begin
+  quRelatorio.Active := False;
+  quRelatorio.Active := True;
   rpProdutos.ShowReport;
 end;
 

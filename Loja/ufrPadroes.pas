@@ -30,6 +30,7 @@ type
     lbRazaoSocial: TcxLabel;
     lbTelefone: TcxLabel;
     nvPadroes: TcxDBNavigator;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -45,5 +46,10 @@ uses
   udmConexao;
 
 {$R *.dfm}
+
+procedure TfrPadroes.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
 
 end.

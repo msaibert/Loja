@@ -198,7 +198,7 @@ object frMovimentoDeEstoque: TfrMovimentoDeEstoque
     SQL.Strings = (
       
         'select * from operacoes where movimentar_estoque and not movimen' +
-        'tar_caixa and not movimentar_pendura;')
+        'tar_caixa and not movimentar_pendencia;')
     Params = <>
     Left = 8
     Top = 296

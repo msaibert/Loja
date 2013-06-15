@@ -334,10 +334,8 @@ begin
       end;
     end;
 
-    LFormValidation.pnErros.Visible := LErros > 0;
-    LFormValidation.gdErros.Visible := LErros > 0;
+    LFormValidation.pnErrors.Visible := LErros > 0;
     LFormValidation.pnWarnings.Visible := LWarnings > 0;
-    LFormValidation.gdWarnings.Visible := LWarnings > 0;
 
 
     if (LErros > 0) or (LWarnings > 0 ) then
