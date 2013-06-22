@@ -31,7 +31,6 @@ type
     dsControleCaixa: TDataSource;
     mmObservacao: TcxDBMemo;
     lbObservacao: TcxLabel;
-    quMoedasControle: TZQuery;
     quMoedas: TZQuery;
     dsMoedas: TDataSource;
     lbSaldoCaixa: TcxLabel;
@@ -43,11 +42,14 @@ type
     clValor: TcxGridDBColumn;
     clQuantidade: TcxGridDBColumn;
     clTotal: TcxGridDBColumn;
+    quMoedasControle: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure btAbrirFecharCaixaClick(Sender: TObject);
     procedure lcCaixaExit(Sender: TObject);
     procedure grMoedasEditChanged(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem);
+    procedure clQuantidadePropertiesChange(Sender: TObject);
+    procedure clTotalPropertiesChange(Sender: TObject);
   private
     function CaixaNaoPertenceAEsseUsuario: Boolean;
     function VerificarSeEhAberturaOuFechamentoDoCaixa : String;
@@ -56,6 +58,7 @@ type
     function CaixaJaAbertoParaEssaData: Boolean;
     { Private declarations }
   public
+     constructor Create(AOwner: TComponent; ACaixaId : Integer); overload;
     { Public declarations }
   end;
 
@@ -73,7 +76,6 @@ procedure TfrControleDeCaixa.btAbrirFecharCaixaClick(Sender: TObject);
 begin
   quControleCaixa.Post;
   RelacionarControleComMoedas;
-  quMoedasControle.ApplyUpdates;
   Self.Close;
 end;
 
@@ -131,10 +133,12 @@ end;
 procedure TfrControleDeCaixa.AdicionarMoedasPadraoAoDataSet;
 begin
   quMoedasControle.DisableControls;
+  quMoedas.First;
   while not quMoedas.Eof do
   begin
      quMoedasControle.Append;
      quMoedasControle.FieldByName('moeda_id').AsInteger := quMoedas.FieldByName('id').AsInteger;
+     quMoedasControle.FieldByName('valor').AsFloat := quMoedas.FieldByName('valor').AsFloat;
      quMoedasControle.FieldByName('quantidade').AsInteger := 0;
      quMoedasControle.Post;
      quMoedas.Next;
@@ -143,7 +147,15 @@ begin
 end;
 
 procedure TfrControleDeCaixa.RelacionarControleComMoedas;
+var
+  LSave : TZQuery;
 begin
+  LSave := TZQuery.Create(Self);
+  LSave.Connection := quControleCaixa.Connection;
+  LSave.CachedUpdates := True;
+  LSave.SQL.Text := 'select * from controle_caixa_moedas where false;';
+  LSave.Active := True;
+
   quMoedasControle.DisableControls;
   quMoedasControle.First;
   while not quMoedasControle.Eof do
@@ -152,11 +164,15 @@ begin
       quMoedasControle.Delete
     else
     begin
-      quMoedasControle.Edit;
-      quMoedasControle.FieldByName('controle_caixa_id').AsInteger := quControleCaixa.FieldByName('id').AsInteger;
-      quMoedasControle.Next;
+      LSave.Append;
+      LSave.FieldByName('controle_caixa_id').AsInteger := quControleCaixa.FieldByName('id').AsInteger;
+      LSave.FieldByName('moeda_id').AsInteger := quMoedasControle.FieldByName('moeda_id').AsInteger;
+      LSave.FieldByName('quantidade').AsFloat := quMoedasControle.FieldByName('quantidade').AsFloat;
+      LSave.FieldByName('total').AsFloat := quMoedasControle.FieldByName('total').AsFloat;
+      LSave.Post;
     end;
   end;
+  LSave.ApplyUpdates;
 end;
 
 { Validations }
@@ -166,6 +182,26 @@ begin
   Result := quCaixas.FieldByName('usuario_id').AsInteger = dmConexao.FUsuarioLogado;
 end;
 
+
+procedure TfrControleDeCaixa.clQuantidadePropertiesChange(Sender: TObject);
+begin
+  quMoedasControle.DisableControls;
+  quMoedasControle.FieldByName('total').AsFloat := quMoedasControle.FieldByName('valor').AsFloat * TcxSpinEdit(Sender).Value;
+  quMoedasControle.EnableControls;
+end;
+
+procedure TfrControleDeCaixa.clTotalPropertiesChange(Sender: TObject);
+begin
+  quMoedasControle.DisableControls;
+  quMoedasControle.FieldByName('quantidade').AsFloat := TcxCurrencyEdit(Sender).Value / quMoedasControle.FieldByName('valor').AsFloat;
+  quMoedasControle.EnableControls;
+end;
+
+constructor TfrControleDeCaixa.Create(AOwner: TComponent; ACaixaId : Integer);
+begin
+  inherited Create(AOwner);
+  quCaixas.ParamByName('CAIXAID').Value := ACaixaId;
+end;
 
 function TfrControleDeCaixa.CaixaJaAbertoParaEssaData : Boolean;
 begin

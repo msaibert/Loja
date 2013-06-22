@@ -3,7 +3,7 @@ object frControleDeCaixa: TfrControleDeCaixa
   Top = 0
   BorderIcons = [biSystemMenu]
   Caption = 'Controle de Caixa'
-  ClientHeight = 620
+  ClientHeight = 647
   ClientWidth = 381
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,7 @@ object frControleDeCaixa: TfrControleDeCaixa
   OnCreate = FormCreate
   DesignSize = (
     381
-    620)
+    647)
   PixelsPerInch = 96
   TextHeight = 13
   object lcCaixa: TcxDBLookupComboBox
@@ -58,18 +58,29 @@ object frControleDeCaixa: TfrControleDeCaixa
     Caption = 'Data'
   end
   object gdMoedas: TcxGrid
-    Left = 8
+    Left = 15
     Top = 171
-    Width = 357
-    Height = 267
+    Width = 350
+    Height = 296
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 4
     object grMoedas: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dsMoedasControle
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.DefaultGroupSummaryItems = <
+        item
+          Kind = skSum
+          Position = spFooter
+          Column = clTotal
+        end>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          FieldName = 'total'
+          Column = clTotal
+        end>
       DataController.Summary.SummaryGroups = <>
+      DataController.Summary.Options = [soNullIgnore]
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object clExtenso: TcxGridDBColumn
@@ -102,11 +113,14 @@ object frControleDeCaixa: TfrControleDeCaixa
         Caption = 'Quantidade'
         DataBinding.FieldName = 'quantidade'
         PropertiesClassName = 'TcxSpinEditProperties'
+        Properties.ValueType = vtFloat
+        Properties.OnChange = clQuantidadePropertiesChange
       end
       object clTotal: TcxGridDBColumn
         Caption = 'Total'
         DataBinding.FieldName = 'total'
-        Options.Editing = False
+        PropertiesClassName = 'TcxCurrencyEditProperties'
+        Properties.OnChange = clTotalPropertiesChange
       end
     end
     object glMoedas: TcxGridLevel
@@ -115,27 +129,28 @@ object frControleDeCaixa: TfrControleDeCaixa
   end
   object btAbrirFecharCaixa: TcxButton
     Left = 244
-    Top = 585
+    Top = 612
     Width = 121
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Abrir/Fechar Caixa'
     TabOrder = 5
     OnClick = btAbrirFecharCaixaClick
+    ExplicitTop = 585
   end
   object mmObservacao: TcxDBMemo
     Left = 15
-    Top = 467
+    Top = 496
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataBinding.DataField = 'observacao'
     DataBinding.DataSource = dsControleCaixa
     TabOrder = 6
-    Height = 112
+    Height = 110
     Width = 350
   end
   object lbObservacao: TcxLabel
     Left = 15
-    Top = 444
+    Top = 473
     Caption = 'Observa'#231#245'es'
   end
   object lbSaldoCaixa: TcxLabel
@@ -175,10 +190,22 @@ object frControleDeCaixa: TfrControleDeCaixa
       'SaldoCaixa(id, DataCaixa(id)) as Saldo,'
       'DataCaixa(id) as Data, '
       'SituacaoCaixa(id) as Situacao'
-      'from caixas;')
-    Params = <>
+      'from caixas'
+      'where id = :CAIXAID;')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'CAIXAID'
+        ParamType = ptUnknown
+      end>
     Left = 288
     Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'CAIXAID'
+        ParamType = ptUnknown
+      end>
   end
   object dsCaixas: TDataSource
     DataSet = quCaixas
@@ -203,15 +230,6 @@ object frControleDeCaixa: TfrControleDeCaixa
     Left = 296
     Top = 584
   end
-  object quMoedasControle: TZQuery
-    Connection = dmConexao.connectionSistema
-    CachedUpdates = True
-    SQL.Strings = (
-      'select * from controle_caixa_moedas where false;')
-    Params = <>
-    Left = 72
-    Top = 384
-  end
   object quMoedas: TZQuery
     Connection = dmConexao.connectionSistema
     SQL.Strings = (
@@ -224,5 +242,35 @@ object frControleDeCaixa: TfrControleDeCaixa
     DataSet = quMoedas
     Left = 168
     Top = 384
+  end
+  object quMoedasControle: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'moeda_id'
+        DataType = ftInteger
+      end
+      item
+        Name = 'quantidade'
+        DataType = ftInteger
+      end
+      item
+        Name = 'total'
+        DataType = ftFloat
+      end
+      item
+        Name = 'valor'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 64
+    Top = 384
+    Data = {
+      5A0000009619E0BD0100000018000000040000000000030000005A00086D6F65
+      64615F696404000100000000000A7175616E7469646164650400010000000000
+      05746F74616C08000400000000000576616C6F7208000400000000000000}
   end
 end

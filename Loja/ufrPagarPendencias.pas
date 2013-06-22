@@ -52,17 +52,20 @@ type
     lcOperacao: TcxLookupComboBox;
     afPendenciassoma: TAggregateField;
     Label1: TLabel;
-    fqItens: TfrxDBDataset;
+    fqRelatorioItens: TfrxDBDataset;
+    quRelatorioItens: TZQuery;
     rpItens: TfrxReport;
-    quItens: TZQuery;
-    dsItens: TDataSource;
+    fqTeste: TfrxDBDataset;
+    quRelatorioVenda: TZQuery;
     procedure btControleCaixaClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure edValorPagamentoExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btPagarClick(Sender: TObject);
     procedure lcOperacaoPropertiesChange(Sender: TObject);
-    procedure lcPessoasExit(Sender: TObject);
+    procedure clRelatorioItensPropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
+    procedure lcPessoasPropertiesChange(Sender: TObject);
   private
     procedure CopiarDadosDataSet;
     procedure GerarMovimentosDePendencia;
@@ -88,7 +91,7 @@ uses
 
 procedure TfrPagarPendencias.btControleCaixaClick(Sender: TObject);
 begin
-  frControleDeCaixa := TfrControleDeCaixa.Create(nil);
+  frControleDeCaixa := TfrControleDeCaixa.Create(nil, quCaixa.FieldByName('id').AsInteger);
   frControleDeCaixa.ShowModal;
 end;
 
@@ -97,6 +100,20 @@ begin
   GerarMovimentosDePendencia;
   GerarMovimentoDeCaixa;
   quPendencias.Refresh;
+  CopiarDadosDataSet;
+  edValorPagamento.Value := 0.0;
+end;
+
+procedure TfrPagarPendencias.clRelatorioItensPropertiesButtonClick(
+  Sender: TObject; AButtonIndex: Integer);
+begin
+  quRelatorioItens.Active := False;
+  quRelatorioVenda.Active := False;
+  quRelatorioItens.ParamByName('VENDAID').Value := cdPendencias.FieldByName('venda_id').AsInteger;
+  quRelatorioVenda.ParamByName('VENDAID').Value := cdPendencias.FieldByName('venda_id').AsInteger;
+  quRelatorioItens.Active := True;
+  quRelatorioVenda.Active := True;
+  rpItens.ShowReport();
 end;
 
 procedure TfrPagarPendencias.edValorPagamentoExit(Sender: TObject);
@@ -139,7 +156,7 @@ begin
   btControleCaixa.Enabled := lcCaixa.Enabled;
 end;
 
-procedure TfrPagarPendencias.lcPessoasExit(Sender: TObject);
+procedure TfrPagarPendencias.lcPessoasPropertiesChange(Sender: TObject);
 begin
   quPendencias.Filtered := False;
   quPendencias.Filter := 'PESSOA_ID = '+ quPessoa.FieldByName('id').AsString;
@@ -149,10 +166,11 @@ end;
 
 procedure TfrPagarPendencias.CopiarDadosDataSet;
 begin
+  quPendencias.First;
+  cdPendencias.DisableControls;
+  cdPendencias.EmptyDataSet;
   while not quPendencias.Eof do
   begin
-    cdPendencias.DisableControls;
-    cdPendencias.EmptyDataSet;
     cdPendencias.Append;
     cdPendencias.FieldByName('venda_id').AsInteger           := quPendencias.FieldByName('venda_id').AsInteger;
     cdPendencias.FieldByName('data_compra').AsDateTime       := quPendencias.FieldByName('data_compra').AsDateTime;
@@ -160,9 +178,9 @@ begin
     cdPendencias.FieldByName('ultimo_pgto_venda').AsDateTime := quPendencias.FieldByName('ultimo_pgto_venda').AsDateTime;
     cdPendencias.FieldByName('saldo').AsFloat                := quPendencias.FieldByName('saldo').AsFloat;
     cdPendencias.Post;
-    cdPendencias.EnableControls;
     quPendencias.Next;
   end;
+  cdPendencias.EnableControls;
 end;
 
 procedure TfrPagarPendencias.GerarMovimentosDePendencia;
@@ -217,6 +235,7 @@ end;
 
 procedure TfrPagarPendencias.AdicionarValidacoes;
 begin
+   quPagar.AddValidation('pessoa_id', opNotBlank, null, 'Campo pessoa deve ser preenchido');
    quPagar.AddValidation('operacao_id', opNotBlank, null, 'Campo operação deve ser preenchido.');
    quPagar.AddValidation(ValidarSeCaixaInformadoCasoOperacaoMovimenteo, 'Campo caixa deve ser preenchido');
    quPagar.AddValidation(ValidaTotalASerPago, 'Soma dos valores informados individualmente para pagamento das vendas não condiz com valor informado para pagamento.');

@@ -75,8 +75,8 @@ object frPagarPendencias: TfrPagarPendencias
       Properties.ListFieldIndex = 1
       Properties.ListOptions.SyncMode = True
       Properties.ListSource = dsPessoa
+      Properties.OnChange = lcPessoasPropertiesChange
       TabOrder = 0
-      OnExit = lcPessoasExit
       Width = 692
     end
   end
@@ -266,6 +266,7 @@ object frPagarPendencias: TfrPagarPendencias
             Kind = bkText
           end>
         Properties.ViewStyle = vsButtonsAutoWidth
+        Properties.OnButtonClick = clRelatorioItensPropertiesButtonClick
         Options.ShowEditButtons = isebAlways
       end
     end
@@ -315,13 +316,13 @@ object frPagarPendencias: TfrPagarPendencias
     SQL.Strings = (
       'select * from pessoas;')
     Params = <>
-    Left = 584
-    Top = 176
+    Left = 664
+    Top = 24
   end
   object dsPessoa: TDataSource
     DataSet = quPessoa
-    Left = 544
-    Top = 176
+    Left = 624
+    Top = 24
   end
   object quPagar: TZqueryValidation
     Connection = dmConexao.connectionSistema
@@ -336,13 +337,13 @@ object frPagarPendencias: TfrPagarPendencias
     SQL.Strings = (
       'select * from caixas;')
     Params = <>
-    Left = 352
-    Top = 280
+    Left = 728
+    Top = 552
   end
   object dsCaixa: TDataSource
     DataSet = quCaixa
-    Left = 388
-    Top = 288
+    Left = 764
+    Top = 552
   end
   object quOperacoes: TZQuery
     Connection = dmConexao.connectionSistema
@@ -351,13 +352,13 @@ object frPagarPendencias: TfrPagarPendencias
         'select * from operacoes where movimentar_pendencia and (not movi' +
         'mentar_estoque);')
     Params = <>
-    Left = 352
-    Top = 240
+    Left = 832
+    Top = 520
   end
   object dsOperacoes: TDataSource
     DataSet = quOperacoes
-    Left = 388
-    Top = 248
+    Left = 860
+    Top = 520
   end
   object dsPagar: TDataSource
     DataSet = quPagar
@@ -386,13 +387,44 @@ object frPagarPendencias: TfrPagarPendencias
       Expression = 'sum(pagamento)'
     end
   end
-  object fqItens: TfrxDBDataset
-    UserName = 'frxDBDataset1'
+  object fqRelatorioItens: TfrxDBDataset
+    UserName = 'frxDBItens'
     CloseDataSource = False
-    DataSet = quItens
+    DataSet = quRelatorioItens
     BCDToCurrency = False
     Left = 848
     Top = 160
+  end
+  object quRelatorioItens: TZQuery
+    Connection = dmConexao.connectionSistema
+    Filter = 'FALSE'
+    SQL.Strings = (
+      'select '
+      #9'venda_itens.venda_id, '
+      #9'produtos.descricao as produto,'
+      #9'venda_itens.valor_unitario,'
+      #9'venda_itens.quantidade,'
+      
+        #9'venda_itens.valor_unitario * venda_itens.quantidade as sub_tota' +
+        'l_produto,'
+      #9'venda_itens.valor_desconto as desconto_no_item'
+      'from venda_itens '
+      'join produtos on (venda_itens.produto_id = produtos.id)'
+      'where venda_itens.venda_id = :VENDAID;')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'VENDAID'
+        ParamType = ptUnknown
+      end>
+    Left = 808
+    Top = 160
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'VENDAID'
+        ParamType = ptUnknown
+      end>
   end
   object rpItens: TfrxReport
     Version = '4.12.13'
@@ -402,8 +434,8 @@ object frPagarPendencias: TfrPagarPendencias
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 41433.570609976850000000
-    ReportOptions.LastChange = 41433.570609976850000000
+    ReportOptions.CreateDate = 41446.939609328700000000
+    ReportOptions.LastChange = 41446.939609328700000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -411,20 +443,664 @@ object frPagarPendencias: TfrPagarPendencias
       'end.')
     Left = 848
     Top = 208
-    Datasets = <>
+    Datasets = <
+      item
+        DataSet = fqRelatorioItens
+        DataSetName = 'frxDBItens'
+      end
+      item
+        DataSet = fqTeste
+        DataSetName = 'frxDBVenda'
+      end>
     Variables = <>
     Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+      object MasterData1: TfrxMasterData
+        Height = 294.803340000000000000
+        Top = 124.724490000000000000
+        Width = 718.110700000000000000
+        DataSet = fqTeste
+        DataSetName = 'frxDBVenda'
+        RowCount = 0
+        object frxDBVendaid: TfrxMemoView
+          Left = 124.708720000000000000
+          Top = 3.779530000000022000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'id'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          Memo.UTF8W = (
+            '[frxDBVenda."id"]')
+        end
+        object frxDBVendadata: TfrxMemoView
+          Left = 321.244280000000000000
+          Top = 3.779530000000022000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'data'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          Memo.UTF8W = (
+            '[frxDBVenda."data"]')
+        end
+        object frxDBVendaoperacao: TfrxMemoView
+          Left = 124.708720000000000000
+          Top = 26.456709999999990000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'operacao'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          Memo.UTF8W = (
+            '[frxDBVenda."operacao"]')
+        end
+        object frxDBVendaformapgto: TfrxMemoView
+          Left = 124.708720000000000000
+          Top = 49.133890000000010000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'formapgto'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          Memo.UTF8W = (
+            '[frxDBVenda."formapgto"]')
+        end
+        object frxDBVendausuario: TfrxMemoView
+          Left = 124.708720000000000000
+          Top = 71.811070000000000000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'usuario'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          Memo.UTF8W = (
+            '[frxDBVenda."usuario"]')
+        end
+        object frxDBVendavalor_total: TfrxMemoView
+          Left = 167.724490000000000000
+          Top = 129.724490000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'valor_total'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBVenda."valor_total"]')
+          ParentFont = False
+        end
+        object frxDBVendavalor_pago: TfrxMemoView
+          Left = 167.724490000000000000
+          Top = 156.181200000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'valor_pago'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBVenda."valor_pago"]')
+          ParentFont = False
+        end
+        object frxDBVendadesconto_na_compra: TfrxMemoView
+          Left = 167.724490000000000000
+          Top = 206.094620000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'desconto_na_compra'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBVenda."desconto_na_compra"]')
+          ParentFont = False
+        end
+        object frxDBVendavalor_pendente: TfrxMemoView
+          Left = 167.724490000000000000
+          Top = 232.551330000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'valor_pendente'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBVenda."valor_pendente"]')
+          ParentFont = False
+        end
+        object frxDBVendacaixa: TfrxMemoView
+          Left = 124.708720000000000000
+          Top = 96.267779999999990000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'caixa'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          Memo.UTF8W = (
+            '[frxDBVenda."caixa"]')
+        end
+        object Memo1: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 3.779530000000022000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'N'#250'mero:')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 215.417440000000000000
+          Top = 3.779530000000022000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Data:')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 26.456709999999990000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Opera'#231#227'o:')
+          ParentFont = False
+        end
+        object Memo4: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 49.133890000000010000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Forma de Pgto.:')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 71.811070000000000000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Atendente:')
+          ParentFont = False
+        end
+        object Memo6: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 96.267779999999990000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Caixa:')
+          ParentFont = False
+        end
+        object Memo7: TfrxMemoView
+          Left = 46.779530000000000000
+          Top = 129.724490000000000000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor TOTAL:')
+          ParentFont = False
+        end
+        object Memo8: TfrxMemoView
+          Left = 8.984230000000000000
+          Top = 156.181200000000000000
+          Width = 147.401670000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor PAGO NA DATA:')
+          ParentFont = False
+        end
+        object Memo9: TfrxMemoView
+          Left = 12.763760000000000000
+          Top = 206.094620000000000000
+          Width = 143.622140000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor DESCONTO:')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          Left = 39.220470000000000000
+          Top = 232.551330000000000000
+          Width = 117.165430000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor PENDENTE:')
+          ParentFont = False
+        end
+        object Memo11: TfrxMemoView
+          Left = 167.724490000000000000
+          Top = 181.417440000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'valor_pago_posteriormente'
+          DataSet = fqTeste
+          DataSetName = 'frxDBVenda'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBVenda."valor_pago_posteriormente"]')
+          ParentFont = False
+        end
+        object Memo12: TfrxMemoView
+          Left = 8.984230000000000000
+          Top = 181.417440000000000000
+          Width = 147.401670000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor PAGO POSTER.:')
+          ParentFont = False
+        end
+        object Memo13: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 271.787570000000000000
+          Width = 351.496290000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'Produto:')
+          ParentFont = False
+        end
+        object Memo14: TfrxMemoView
+          Left = 366.614410000000000000
+          Top = 271.787570000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Quantidade:')
+          ParentFont = False
+        end
+        object Memo15: TfrxMemoView
+          Left = 453.543600000000000000
+          Top = 271.787570000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor Un.:')
+          ParentFont = False
+        end
+        object Memo16: TfrxMemoView
+          Left = 540.472790000000000000
+          Top = 271.787570000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Desconto:')
+          ParentFont = False
+        end
+        object Memo17: TfrxMemoView
+          Left = 627.401980000000000000
+          Top = 271.787570000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Sub-Total:')
+          ParentFont = False
+        end
+        object Line3: TfrxLineView
+          Left = 3.779530000000000000
+          Top = 260.787570000000000000
+          Width = 706.772110000000000000
+          ShowHint = False
+          Frame.Typ = [ftTop]
+        end
+      end
+      object DetailData1: TfrxDetailData
+        Height = 34.015770000000000000
+        Top = 442.205010000000000000
+        Width = 718.110700000000000000
+        DataSet = fqRelatorioItens
+        DataSetName = 'frxDBItens'
+        RowCount = 0
+        object frxDBItensproduto: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 7.559059999999988000
+          Width = 351.496290000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'produto'
+          DataSet = fqRelatorioItens
+          DataSetName = 'frxDBItens'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBItens."produto"]')
+          ParentFont = False
+        end
+        object frxDBItensquantidade: TfrxMemoView
+          Left = 366.614410000000000000
+          Top = 7.559059999999988000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'quantidade'
+          DataSet = fqRelatorioItens
+          DataSetName = 'frxDBItens'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBItens."quantidade"]')
+          ParentFont = False
+        end
+        object frxDBItensvalor_unitario: TfrxMemoView
+          Left = 453.543600000000000000
+          Top = 7.559059999999988000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'valor_unitario'
+          DataSet = fqRelatorioItens
+          DataSetName = 'frxDBItens'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBItens."valor_unitario"]')
+          ParentFont = False
+        end
+        object frxDBItenssub_total_produto: TfrxMemoView
+          Left = 627.401980000000000000
+          Top = 7.559059999999988000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = fqRelatorioItens
+          DataSetName = 'frxDBItens'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBItens."sub_total_produto"]')
+          ParentFont = False
+        end
+        object frxDBItensdesconto_no_item: TfrxMemoView
+          Left = 540.472790000000000000
+          Top = 7.559059999999988000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataField = 'desconto_no_item'
+          DataSet = fqRelatorioItens
+          DataSetName = 'frxDBItens'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBItens."desconto_no_item"]')
+          ParentFont = False
+        end
+      end
+      object ReportTitle1: TfrxReportTitle
+        Height = 45.354360000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo18: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 3.779530000000001000
+          Width = 710.551640000000000000
+          Height = 26.456710000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Relat'#243'rio de Compra')
+          ParentFont = False
+        end
+        object Line1: TfrxLineView
+          Left = 3.779530000000000000
+          Top = 37.795300000000000000
+          Width = 710.551640000000000000
+          ShowHint = False
+          Frame.Typ = [ftTop]
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        Height = 34.015770000000000000
+        Top = 536.693260000000000000
+        Width = 718.110700000000000000
+        object SysMemo1: TfrxSysMemoView
+          Left = 359.055350000000000000
+          Top = 7.559060000000045000
+          Width = 347.716760000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              'Total da Compra: [SUM(<frxDBItens."sub_total_produto">,DetailDat' +
+              'a1)]')
+          ParentFont = False
+        end
+        object Line2: TfrxLineView
+          Left = 3.779530000000000000
+          Top = 3.779530000000022000
+          Width = 710.551640000000000000
+          ShowHint = False
+          Frame.Typ = [ftTop]
+        end
+      end
+    end
   end
-  object quItens: TZQuery
+  object fqTeste: TfrxDBDataset
+    UserName = 'frxDBVenda'
+    CloseDataSource = False
+    DataSet = quRelatorioVenda
+    BCDToCurrency = False
+    Left = 848
+    Top = 120
+  end
+  object quRelatorioVenda: TZQuery
     Connection = dmConexao.connectionSistema
     Filter = 'FALSE'
-    Filtered = True
     SQL.Strings = (
       'select '
+      #9'vendas.id,'
       #9'vendas.data, '
-      #9'operacoes.descricao,'
-      #9'formas_de_pagamento.descricao,'
-      #9'pessoa_usuario.nome as usuario'
+      #9'operacoes.descricao as operacao,'
+      #9'formas_de_pagamento.descricao as formapgto,'
+      #9'pessoa_usuario.nome as usuario, '
       #9'vendas.valor_total,'
       #9'vendas.valor_pago,'
       #9'vendas.valor_desconto as desconto_na_compra,'
@@ -434,33 +1110,31 @@ object frPagarPendencias: TfrPagarPendencias
         ' join operacoes o on (o.id = movimento_pendencia.operacao_id) wh' +
         'ere movimento_pendencia.venda_id = vendas.id) valor_pago_posteri' +
         'ormente,'
-      #9'caixas.descricao,'
-      #9'produtos.descricao,'
-      #9'venda_itens.valor_unitario,'
-      #9'venda_itens.quantidade,'
-      
-        #9'venda_itens.valor_unitario * venda_itens.quantidade as sub_tota' +
-        'l_produto,'
-      #9'venda_itens.valor_desconto as desconto_no_item'
+      #9'caixas.descricao as caixa'
       'from vendas'
-      'join venda_itens on (vendas.id = venda_itens.venda_id)'
       'join operacoes on (vendas.operacao_id = operacoes.id)'
       
         'left join formas_de_pagamento on (vendas.forma_pagamento_id = fo' +
         'rmas_de_pagamento.id)'
       'join caixas on (vendas.caixa_id = caixas.id)'
-      'join produtos on (venda_itens.produto_id = produtos.id)'
       'join usuarios on (vendas.usuario_id = usuarios.id)'
       
         'join pessoas  as pessoa_usuario on (usuarios.pessoa_id = pessoa_' +
-        'usuario.id);')
-    Params = <>
+        'usuario.id)'
+      'where vendas.id = :VENDAID;')
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'VENDAID'
+        ParamType = ptUnknown
+      end>
     Left = 808
-    Top = 160
-  end
-  object dsItens: TDataSource
-    DataSet = quItens
-    Left = 808
-    Top = 208
+    Top = 120
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'VENDAID'
+        ParamType = ptUnknown
+      end>
   end
 end
