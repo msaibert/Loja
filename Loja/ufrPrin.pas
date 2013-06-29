@@ -23,6 +23,8 @@ type
     miCaixas: TMenuItem;
     miPadroes: TMenuItem;
     miPagamentodePendencias: TMenuItem;
+    miRelatorios: TMenuItem;
+    miMovimentaoCaixaDirio: TMenuItem;
     procedure miUsuariosClick(Sender: TObject);
     procedure miProdutosClick(Sender: TObject);
     procedure miCategoriasClick(Sender: TObject);
@@ -35,6 +37,7 @@ type
     procedure miPadroesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure miPagamentodePendenciasClick(Sender: TObject);
+    procedure miMovimentaoCaixaDirioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,7 +51,8 @@ implementation
 
 uses ufrUsuarios, ufrOperacoes,
   ufrProdutos, ufrPessoas, ufrCategoriasProdutos, ufrFormasPagamento, ufrCaixas,
-  ufrLogin, ufrMovimentoDeEstoque, ufrVendas, ufrPadroes, ufrPagarPendencias;
+  ufrLogin, ufrMovimentoDeEstoque, ufrVendas, ufrPadroes, ufrPagarPendencias,
+  ufrRelatorioControleCaixa;
 
 {$R *.dfm}
 
@@ -111,6 +115,11 @@ end;
 procedure TfrPrincipal.miFormasdePagamentoClick(Sender: TObject);
 begin
   Application.CreateForm(TfrFormasPagamento, frFormasPagamento);
+end;
+
+procedure TfrPrincipal.miMovimentaoCaixaDirioClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrRelatorioControleCaixa, frRelatorioControleCaixa);
 end;
 
 end.

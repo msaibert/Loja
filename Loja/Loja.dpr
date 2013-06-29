@@ -25,8 +25,8 @@ uses
   ufrCancelarItem in 'ufrCancelarItem.pas' {frCancelarItem},
   ufrPadroes in 'ufrPadroes.pas' {frPadroes},
   ufrControleDeCaixa in 'ufrControleDeCaixa.pas' {frControleDeCaixa},
-  ufrRelatorioCaixa in 'ufrRelatorioCaixa.pas' {frRelatorioCaixa},
-  ufrPagarPendencias in 'ufrPagarPendencias.pas' {frPagarPendencias};
+  ufrPagarPendencias in 'ufrPagarPendencias.pas' {frPagarPendencias},
+  ufrRelatorioControleCaixa in 'ufrRelatorioControleCaixa.pas' {frRelatorioControleCaixa};
 
 {$R *.res}
 
@@ -34,6 +34,5 @@ begin
   Application.Initialize;
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TfrPrincipal, frPrincipal);
-  Application.CreateForm(TfrRelatorioCaixa, frRelatorioCaixa);
   Application.Run;
 end.

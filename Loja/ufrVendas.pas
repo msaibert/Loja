@@ -208,7 +208,7 @@ end;
 
 procedure TfrVendas.btAbrirCaixaClick(Sender: TObject);
 begin
-  frControleDeCaixa := TfrControleDeCaixa.Create(nil);
+  frControleDeCaixa := TfrControleDeCaixa.Create(nil, dmVendas.quCaixa.FieldByName('id').AsInteger);
   frControleDeCaixa.ShowModal;
 end;
 

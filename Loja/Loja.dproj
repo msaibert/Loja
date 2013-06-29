@@ -176,13 +176,12 @@
             <Form>frControleDeCaixa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="ufrRelatorioCaixa.pas">
-            <Form>frRelatorioCaixa</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="ufrPagarPendencias.pas">
             <Form>frPagarPendencias</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="ufrRelatorioControleCaixa.pas">
+            <Form>frRelatorioControleCaixa</Form>
         </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

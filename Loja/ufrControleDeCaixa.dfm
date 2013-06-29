@@ -113,6 +113,7 @@ object frControleDeCaixa: TfrControleDeCaixa
         Caption = 'Quantidade'
         DataBinding.FieldName = 'quantidade'
         PropertiesClassName = 'TcxSpinEditProperties'
+        Properties.DisplayFormat = '0.0'
         Properties.ValueType = vtFloat
         Properties.OnChange = clQuantidadePropertiesChange
       end
@@ -136,7 +137,6 @@ object frControleDeCaixa: TfrControleDeCaixa
     Caption = 'Abrir/Fechar Caixa'
     TabOrder = 5
     OnClick = btAbrirFecharCaixaClick
-    ExplicitTop = 585
   end
   object mmObservacao: TcxDBMemo
     Left = 15

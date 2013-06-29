@@ -46,8 +46,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btAbrirFecharCaixaClick(Sender: TObject);
     procedure lcCaixaExit(Sender: TObject);
-    procedure grMoedasEditChanged(Sender: TcxCustomGridTableView;
-      AItem: TcxCustomGridTableItem);
     procedure clQuantidadePropertiesChange(Sender: TObject);
     procedure clTotalPropertiesChange(Sender: TObject);
   private
@@ -68,7 +66,7 @@ var
 implementation
 
 uses
-  udmConexao, uSQLUtil;
+  udmConexao, uSQLUtil, ufrRelatorioControleCaixa;
 
 {$R *.dfm}
 
@@ -76,6 +74,10 @@ procedure TfrControleDeCaixa.btAbrirFecharCaixaClick(Sender: TObject);
 begin
   quControleCaixa.Post;
   RelacionarControleComMoedas;
+  frRelatorioControleCaixa := TfrRelatorioControleCaixa.Create(nil);
+  frRelatorioControleCaixa.Visible := False;
+  frRelatorioControleCaixa.ExibeRelatorioCaixa(quCaixas.FieldByName('data').AsDateTime, quCaixas.FieldByName('id').AsInteger);
+  frRelatorioControleCaixa.Close;
   Self.Close;
 end;
 
@@ -93,15 +95,7 @@ begin
 
   quControleCaixa.Append;
   AdicionarMoedasPadraoAoDataSet;
-end;
-
-procedure TfrControleDeCaixa.grMoedasEditChanged(Sender: TcxCustomGridTableView;
-  AItem: TcxCustomGridTableItem);
-begin
-  if AItem = clQuantidade then
-  begin
-    clTotal.EditValue := clQuantidade.EditValue * clValor.EditValue;
-  end;
+  quMoedasControle.Edit;
 end;
 
 procedure TfrControleDeCaixa.lcCaixaExit(Sender: TObject);
@@ -170,6 +164,7 @@ begin
       LSave.FieldByName('quantidade').AsFloat := quMoedasControle.FieldByName('quantidade').AsFloat;
       LSave.FieldByName('total').AsFloat := quMoedasControle.FieldByName('total').AsFloat;
       LSave.Post;
+      quMoedasControle.Next;
     end;
   end;
   LSave.ApplyUpdates;
@@ -185,6 +180,7 @@ end;
 
 procedure TfrControleDeCaixa.clQuantidadePropertiesChange(Sender: TObject);
 begin
+  quMoedasControle.Edit;
   quMoedasControle.DisableControls;
   quMoedasControle.FieldByName('total').AsFloat := quMoedasControle.FieldByName('valor').AsFloat * TcxSpinEdit(Sender).Value;
   quMoedasControle.EnableControls;
@@ -192,6 +188,7 @@ end;
 
 procedure TfrControleDeCaixa.clTotalPropertiesChange(Sender: TObject);
 begin
+  quMoedasControle.Edit;
   quMoedasControle.DisableControls;
   quMoedasControle.FieldByName('quantidade').AsFloat := TcxCurrencyEdit(Sender).Value / quMoedasControle.FieldByName('valor').AsFloat;
   quMoedasControle.EnableControls;
